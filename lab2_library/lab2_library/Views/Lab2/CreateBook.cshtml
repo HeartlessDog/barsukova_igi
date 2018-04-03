@@ -1,0 +1,36 @@
+﻿@model libr.Models.Book
+
+@{
+    ViewData["Title"] = "CreateBook";
+}
+<h2>CreateBook</h2>
+<hr />
+<div class="row">
+    <div class="col-md-4">
+        <form asp-action="CreateBook">
+            <label class="control-label">Registration Number </label>
+            <input asp-for="RegistrationNumber" class="form-control" />
+
+            <label class="control-label">Name </label>
+            <input asp-for="Name" class="form-control" />
+
+            <label class="control-label">Author </label>
+            <input asp-for="Author" class="form-control" />
+
+            <label class="control-label">Edition </label>
+            <input asp-for="Edition" class="form-control" />
+
+            <label class="control-label">Year Of Edition </label>
+            <input asp-for="YearOfEdition" class="form-control" />
+
+            <label class="control-label">Jenre </label>
+            <input asp-for="JenreID" class="form-control" />
+
+            <label class="control-label">Price </label>
+            <input asp-for="Price" class="form-control" />
+            <br />
+            <input type="submit" value="Create" class="btn btn-primary" /> 
+        </form>
+    </div>
+</div>
+

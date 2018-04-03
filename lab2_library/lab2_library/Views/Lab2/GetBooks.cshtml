@@ -1,0 +1,92 @@
+﻿@model IEnumerable<libr.Models.Book>
+@{
+    ViewData["Title"] = "Index";
+}
+<h2>Books</h2>
+<img style="width:120px;" src="~/images/Picture.PNG" title="книга">
+
+<form asp-controller="Lab2" asp-action="GetBooks">
+    <p style="font-size:18px;">
+        <b>Search by books: </b><input type="text" name="SearchString">
+        <input class="btn btn-primary" type="submit" value="Filter" />
+
+        <b>Search by genre: </b>
+        <select>
+    <option>Non-fiction</option>
+    <option>Fiction</option>
+    <option>Poetry</option>
+    <option>Autobiographies</option>
+    <option>Biographies</option>
+    <option>History</option>
+    <option>Science</option>
+    <option>Drama</option>
+    <option>Mystery</option>
+    <option>Horror</option>
+</select>
+        <input class="btn btn-primary" type="submit" value="Filter" />
+    </p>
+</form>
+
+<table class="table table-striped table-bordered table-condensed">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.RegistrationNumber)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Name)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Author)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Edition)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.YearOfEdition)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Price)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Jenre)
+            </th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.RegistrationNumber)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Name)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Author)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Edition)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.YearOfEdition)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Price)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Jenre.Name)
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
+<div>
+    LIST
+    <ul>
+        <li>1</li>
+        <li>2</li>
+        <li>3</li>
+    </ul>
+</div>

@@ -1,0 +1,74 @@
+﻿@model IEnumerable<libr.Models.Issuence>
+
+@{
+    ViewData["Title"] = "Index";
+}
+
+<h2>Issuences</h2>
+<img style="width:120px;" src="~/images/Picture.PNG">
+
+<form asp-controller="Lab2" asp-action="GetIssuences">
+    <p style="font-size:18px;">
+        <b>Search by reader: </b><input type="text" name="SearchString">
+        <input class="btn btn-primary" type="submit" value="Filter" />
+    <b>Search by book: </b>
+    <select>
+        @for (int i = 1; i < 10; i++) {
+        <option>Book @i</option>
+       }
+    </select>
+    <input class="btn btn-primary" type="submit" value="Filter" />
+    </p>
+</form>
+
+<table class="table table-striped table-bordered table-condensed">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.DateOfIssuance)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.DateOfReturn)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Return)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Book)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Reader)
+            </th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.DateOfIssuance)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.DateOfReturn)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Return)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Book.Name)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Reader.FullName)
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
+<div>
+    LIST
+    <ul>
+        <li>1</li>
+        <li>2</li>
+        <li>3</li>
+    </ul>
+</div>
