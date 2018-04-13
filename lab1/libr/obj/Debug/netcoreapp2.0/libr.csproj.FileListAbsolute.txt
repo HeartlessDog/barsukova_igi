@@ -1,0 +1,11 @@
+E:\Учёба\06сем\Избранные главы информатики\libr\libr\bin\Debug\netcoreapp2.0\libr.deps.json
+E:\Учёба\06сем\Избранные главы информатики\libr\libr\bin\Debug\netcoreapp2.0\libr.runtimeconfig.json
+E:\Учёба\06сем\Избранные главы информатики\libr\libr\bin\Debug\netcoreapp2.0\libr.runtimeconfig.dev.json
+E:\Учёба\06сем\Избранные главы информатики\libr\libr\bin\Debug\netcoreapp2.0\libr.dll
+E:\Учёба\06сем\Избранные главы информатики\libr\libr\obj\Debug\netcoreapp2.0\libr.csproj.CoreCompileInputs.cache
+E:\Учёба\06сем\Избранные главы информатики\libr\libr\obj\Debug\netcoreapp2.0\libr.AssemblyInfoInputs.cache
+E:\Учёба\06сем\Избранные главы информатики\libr\libr\obj\Debug\netcoreapp2.0\libr.AssemblyInfo.cs
+E:\Учёба\06сем\Избранные главы информатики\libr\libr\bin\Debug\netcoreapp2.0\libr.pdb
+E:\Учёба\06сем\Избранные главы информатики\libr\libr\obj\Debug\netcoreapp2.0\libr.csprojResolveAssemblyReference.cache
+E:\Учёба\06сем\Избранные главы информатики\libr\libr\obj\Debug\netcoreapp2.0\libr.dll
+E:\Учёба\06сем\Избранные главы информатики\libr\libr\obj\Debug\netcoreapp2.0\libr.pdb
