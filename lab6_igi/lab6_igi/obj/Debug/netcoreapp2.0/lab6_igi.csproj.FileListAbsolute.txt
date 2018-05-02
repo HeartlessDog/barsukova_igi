@@ -1,0 +1,11 @@
+E:\Учёба\06сем\Избранные главы информатики\lab6\lab6_igi\lab6_igi\bin\Debug\netcoreapp2.0\lab6_igi.deps.json
+E:\Учёба\06сем\Избранные главы информатики\lab6\lab6_igi\lab6_igi\bin\Debug\netcoreapp2.0\lab6_igi.runtimeconfig.json
+E:\Учёба\06сем\Избранные главы информатики\lab6\lab6_igi\lab6_igi\bin\Debug\netcoreapp2.0\lab6_igi.runtimeconfig.dev.json
+E:\Учёба\06сем\Избранные главы информатики\lab6\lab6_igi\lab6_igi\bin\Debug\netcoreapp2.0\lab6_igi.dll
+E:\Учёба\06сем\Избранные главы информатики\lab6\lab6_igi\lab6_igi\obj\Debug\netcoreapp2.0\lab6_igi.csprojResolveAssemblyReference.cache
+E:\Учёба\06сем\Избранные главы информатики\lab6\lab6_igi\lab6_igi\obj\Debug\netcoreapp2.0\lab6_igi.csproj.CoreCompileInputs.cache
+E:\Учёба\06сем\Избранные главы информатики\lab6\lab6_igi\lab6_igi\obj\Debug\netcoreapp2.0\lab6_igi.AssemblyInfoInputs.cache
+E:\Учёба\06сем\Избранные главы информатики\lab6\lab6_igi\lab6_igi\obj\Debug\netcoreapp2.0\lab6_igi.AssemblyInfo.cs
+E:\Учёба\06сем\Избранные главы информатики\lab6\lab6_igi\lab6_igi\bin\Debug\netcoreapp2.0\lab6_igi.pdb
+E:\Учёба\06сем\Избранные главы информатики\lab6\lab6_igi\lab6_igi\obj\Debug\netcoreapp2.0\lab6_igi.dll
+E:\Учёба\06сем\Избранные главы информатики\lab6\lab6_igi\lab6_igi\obj\Debug\netcoreapp2.0\lab6_igi.pdb

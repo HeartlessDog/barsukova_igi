@@ -1,0 +1,291 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width" />
+    <title>Журнал записей</title>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap-theme.min.css" integrity="sha384-rHyoN1iRsVXV4nD0JutlnGaslCJuC7uwjduW9SVrLvRYooPp2bWYgmgJQIXwl/Sp" crossorigin="anonymous">
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
+    <link href="lib/bootstrap/dist/css/bootstrap.css" rel="stylesheet" />
+    <script src="lib/jquery/dist/jquery.js"></script>
+</head>
+<style>
+    body{
+        margin:50px;
+    }
+    .form-control{
+        width:250px;
+    }
+</style>
+<body>
+    <h2>Журнал записей</h2>
+    <div id="errors"></div>
+    <form name="issuenceForm">
+        <input type="hidden" name="id" value="0" />
+
+        <div class="form-group">
+            <label for="readerID">Читатель:</label>
+            <select class="list-group form-control" name="readerID" data-style="btn-primary" id="readerID"></select>
+        </div>
+        <div class="form-group">
+            <label for="bookID">Книга:</label>
+            <select class="list-group form-control" name="bookID" data-style="btn-primary" id="bookID"></select>
+        </div>
+        <div class="form-group">
+            <label for="dateOfIssuance">Дата выдачи:</label>
+            <input type="datetime-local" class="form-control" name="dateOfIssuance" value="dateOfIssuance" />
+        </div>
+        <div class="form-group">
+            <label for="return">Возврат(true/false): </label>
+            <input class="list-group form-control" name="return" />
+        </div>
+
+        <div class="panel-body">
+            <button type="submit" class="btn btn-sm btn-primary">Сохранить</button>
+            <a id="reset" class="btn btn-sm btn-primary">Сбросить</a>
+        </div>
+    </form>
+    <table class="table table-condensed table-striped table-bordered">
+        <thead><tr><th>Id</th><th>Читатель</th><th>Книга</th><th></th></tr></thead>
+        <tbody></tbody>
+    </table>
+
+    <script>
+        // Получение всех записей.
+        function GetNotes() {
+            $.ajax({
+                url: '/api/Library',
+                type: 'GET',
+                contentType: "application/json",
+                success: function (issuances) {
+                    var rows = "";
+                    var Readers = "";
+                    var Books = "";
+                    $.each(issuances, function (index, issuence) {
+                        // добавляем полученные элементы в таблицу
+                        rows += row(issuence);
+                        Readers += Reader(issuence);
+                        Books += Book(issuence);
+                    })
+                    $("select#readerID").append(Readers);
+                    $("select#bookID").append(Books);
+                    $("table tbody").append(rows);
+                }
+            });
+        }
+
+        // создание строки для таблицы
+        var row = function (issuence) {
+            return "<tr data-rowid='" + issuence.id + "'><td>" + issuence.id + "</td>" +
+                "<td>" + issuence.book.name + "</td> <td>" + issuence.reader.fullName + "</td>" +
+                "<td><a class='editLink' data-id='" + issuence.id + "'>Изменить</a> | " +
+                "<a class='removeLink' data-id='" + issuence.id + "'>Удалить</a></td></tr>";
+        }
+
+        var Reader = function (issuence) {
+            return "<option value=" + issuence.reader.id + ">" + issuence.reader.fullName + "</option>";
+        }
+
+        var Book = function (issuence) {
+            return "<option value=" + issuence.book.id + ">" + issuence.book.name + "</option>";
+
+        }
+
+        // Получение одной записи
+        function GetIssuence(id) {
+            $.ajax({
+                url: '/api/Library/' + id,
+                type: 'GET',
+                contentType: "application/json",
+                success: function (issuence) {
+                    var form = document.forms["issuenceForm"];
+                    form.elements["id"].value = issuence.id;
+                    form.elements["readerID"].value = issuence.readerID;
+                    form.elements["bookID"].value = issuence.bookID;
+                    form.elements["dateOfIssuance"].value = issuence.dateOfIssuance;
+                    form.elements["return"].value = issuence.return;
+                }
+            });
+        }
+        // Добавление записи
+        function CreateIssuence(ReaderID, BookID, Date, Return) {
+            $.ajax({
+                url: "api/Library",
+                contentType: "application/json",
+                method: "POST",
+                data: JSON.stringify({
+                    readerID: ReaderID,
+                    bookID: BookID,
+                    dateOfIssuance: Date,
+                    return: Return,
+                }),
+                success: function (issuence) {
+                    reset();
+                    $("table tbody").append(row(issuence));
+                },
+                error: function (jxqr, error, status) {
+                    // парсинг json-объекта
+                    $('#errors').html("");
+
+                    if (jxqr.responseText === "") {
+                        $('#errors').append("<h3>" + jxqr.statusText + "</h3>");
+                    }
+                    else {
+                        var response = JSON.parse(jxqr.responseText);
+                        // добавляем общие ошибки модели
+                        if (response['']) {
+
+                            $.each(response[''], function (index, item) {
+                                $('#errors').append("<p>" + item + "</p>");
+                            });
+                        }
+                        if (response['readerID']) {
+
+                            $.each(response['readerID'], function (index, item) {
+                                $('#errors').append("<p>" + item + "</p>");
+                            });
+                        }
+                        if (response['bookID']) {
+
+                            $.each(response['bookID'], function (index, item) {
+                                $('#errors').append("<p>" + item + "</p>");
+                            });
+                        }
+                        if (response['dateOfIssuance']) {
+
+                            $.each(response['dateOfIssuance'], function (index, item) {
+                                $('#errors').append("<p>" + item + "</p>");
+                            });
+                        }
+                        if (response['return']) {
+
+                            $.each(response['return'], function (index, item) {
+                                $('#errors').append("<p>" + item + "</p>");
+                            });
+                        }
+                    }
+                    $('#errors').show();
+                }
+            })
+        }
+        // Изменение пользователя
+        function EditIssuence(issuenceId, ReaderIDD, BookIDD, Date, Ret) {
+            $.ajax({
+                url: "api/Library",
+                contentType: "application/json",
+                method: "PUT",
+                data: JSON.stringify({
+                    id: issuenceId,
+                    readerID: ReaderIDD,
+                    bookID: BookIDD,
+                    dateOfIssuance: Date,
+                    return: Ret,
+                }),
+                success: function (issuence) {
+                    reset();
+                    $("tr[data-rowid='" + issuence.id + "']").replaceWith(row(issuence));
+                },
+                error: function (jxqr, error, status) {
+                    // парсинг json-объекта
+                    if (jxqr.responseText === "") {
+                        $('#errors').append("<h3>" + jxqr.statusText + "</h3>");
+                    }
+                    else {
+                        var response = JSON.parse(jxqr.responseText);
+                        // добавляем общие ошибки модели
+                        if (response['']) {
+
+                            $.each(response[''], function (index, item) {
+                                $('#errors').append("<p>" + item + "</p>");
+                            });
+                        }
+                        if (response['readerID']) {
+
+                            $.each(response['readerID'], function (index, item) {
+                                $('#errors').append("<p>" + item + "</p>");
+                            });
+                        }
+                        if (response['bookID']) {
+
+                            $.each(response['bookID'], function (index, item) {
+                                $('#errors').append("<p>" + item + "</p>");
+                            });
+                        }
+                        if (response['dateOfIssuance']) {
+
+                            $.each(response['dateOfIssuance'], function (index, item) {
+                                $('#errors').append("<p>" + item + "</p>");
+                            });
+                        }
+                        if (response['return']) {
+
+                            $.each(response['return'], function (index, item) {
+                                $('#errors').append("<p>" + item + "</p>");
+                            });
+                        }
+                    }
+                    $('#errors').show();
+                }
+            })
+        }
+
+        // сброс формы
+        function reset() {
+            var form = document.forms["issuenceForm"];
+            form.reset();
+            form.elements["id"].value = 0;
+        }
+
+        // Удаление записи
+        function DeleteIssuence(id) {
+            $.ajax({
+                url: "api/Library/" + id,
+                contentType: "application/json",
+                method: "DELETE",
+                success: function (issuence) {
+                    $("tr[data-rowid='" + issuence.id + "']").remove();
+                }
+            })
+        }
+
+        // сброс значений формы
+        $("#reset").click(function (e) {
+
+            e.preventDefault();
+            reset();
+        })
+
+        // отправка формы
+        $("form").submit(function (e) {
+            e.preventDefault();
+            var id = this.elements["id"].value;
+            var bookID = this.elements["bookID"].value;
+            var readerID = this.elements["readerID"].value;
+            var dateOfIssuance = this.elements["dateOfIssuance"].value;
+            var ret = this.elements["return"].value;
+
+            if (id == 0)
+                CreateIssuence(readerID, bookID, dateOfIssuance, ret);
+            else
+                EditIssuence(id, readerID, bookID, dateOfIssuance, ret);
+        });
+
+        // нажимаем на ссылку Изменить
+        $("body").on("click", ".editLink", function () {
+            var id = $(this).data("id");
+            GetIssuence(id);
+        })
+        // нажимаем на ссылку Удалить
+        $("body").on("click", ".removeLink", function () {
+            var id = $(this).data("id");
+            DeleteIssuence(id);
+        })
+
+        // загрузка записей
+        GetNotes();
+
+    </script>
+</body>
+</html>
