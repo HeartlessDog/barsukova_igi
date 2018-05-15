@@ -1,0 +1,34 @@
+﻿<h2>Add new Reader</h2>
+
+@{
+    Lab3IGI.Reader reader = (Lab3IGI.Reader)ViewData["Fourth"];
+}
+        <div>
+            <label for="FullName">Full name of reader</label>
+            @Html.EditorFor(model => reader.FullName)
+        </div>
+
+        <div class="form-group">
+            <label for="DateOfBirth">Date of birth</label>
+            @Html.EditorFor(model => reader.DateOfBirth)
+        </div>
+
+        <div class="form-group">
+             <label for="Adres">Address</label></>
+             @Html.EditorFor(model => reader.Adres)
+        </div>
+
+        <div class="form-group">
+            <label for="PhoneNumber">Phone number</label>
+            @Html.EditorFor(model => reader.PhoneNumber)
+        </div>
+        <div class="form-group">
+            <label for="PassportData">Passport data</label>
+            @Html.EditorFor(model => reader.PassportData)
+        </div>
+
+            <input class="btn btn-default btn-primary" type="submit" />
+           
+      
+
+

@@ -1,0 +1,190 @@
+﻿@model List<Lab3IGI.Issuence>
+
+<html>
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Issuences</title>
+
+    <environment include="Development">
+        <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.css" />
+        <link rel="stylesheet" href="~/css/site.css" />
+    </environment>
+    <environment exclude="Development">
+        <link rel="stylesheet" href="https://ajax.aspnetcdn.com/ajax/bootstrap/3.3.7/css/bootstrap.min.css"
+              asp-fallback-href="~/lib/bootstrap/dist/css/bootstrap.min.css"
+              asp-fallback-test-class="sr-only" asp-fallback-test-property="position" asp-fallback-test-value="absolute" />
+        <link rel="stylesheet" href="~/css/site.min.css" asp-append-version="true" />
+    </environment>
+</head>
+<body>
+    <nav class="navbar navbar-inverse navbar-fixed-top">
+        <div class="container">
+            <div class="navbar-header">
+                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+                    <span class="sr-only">Toggle navigation</span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
+                <a href="/htmlpage.html" class="navbar-brand">HTML</a>
+            </div>
+            <div class="navbar-collapse collapse">
+                <ul class="nav navbar-nav">
+                    <li><a href="/Home/First">Books</a></li>
+                    <li><a href="/Home/Third">Issuences</a></li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+    <main role="main">
+        <div class="container">
+            <h2>Issuence</h2>
+            <div id="ValueFromMiddleware">
+            </div>
+
+            <table class="table table-striped table-bordered table-condensed">
+                <thead>
+                    <tr>
+                        <th>
+                            @Html.DisplayNameFor(model => model[0].Reader)
+                        </th>
+                        <th>
+                            @Html.DisplayNameFor(model => model[0].Book)
+                        </th>
+                        <th>
+                            @Html.DisplayNameFor(model => model[0].DateOfIssuance)
+                        </th>
+                        <th>
+                            @Html.DisplayNameFor(model => model[0].Return)
+                        </th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var item in Model)
+                    {
+                        <tr>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.Reader.FullName)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.Book.Name)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.DateOfIssuance)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.Return)
+                            </td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+
+            <h2>Add new Issuence</h2>
+            @using (@Html.BeginForm("AddNewItemIssuence", "Home", FormMethod.Post))
+            {
+
+                Lab3IGI.Issuence issuence = (Lab3IGI.Issuence)ViewData["Third"];
+            <table class="table-condensed">
+                <tr class="form-group">
+                    <td><label for="ReaderID">Select Reader</label></td>
+                    <td>
+                        <select id="ReaderID" name="ReaderID">
+                            @{
+                    List<Lab3IGI.Reader> J = (List<Lab3IGI.Reader>)ViewData["Readers"];
+                    foreach (var item in J)
+                    {
+                        <option value=@item.ID>@item.FullName</option>
+        }
+                            }
+                        </select>
+                    </td>
+                </tr>
+                <tr class="form-group">
+                    <td><label for="BookID">Select Book</label></td>
+                    <td>
+                        <select id="BookID" name="BookID">
+                            @{
+                    List<Lab3IGI.Book> H = (List<Lab3IGI.Book>)ViewData["Books"];
+                    foreach (var item in H)
+                    {
+                        <option value=@item.ID>@item.Name</option>
+        }
+                            }
+                        </select>
+                    </td>
+                </tr>
+
+                <tr class="form-group">
+                    <td><label for="DateOfIssuance">Date of issuance</label></td>
+                    <td> @Html.EditorFor(model => issuence.DateOfIssuance)</td>
+                </tr>
+
+                <tr class="form-group">
+                    <td><label for="Return">Return</label></td>
+                    <td>@Html.EditorFor(model => issuence.Return)</td>
+                </tr>
+                <tr>
+                    <td><input class="btn btn-default btn-primary" type="submit" /></td>
+                    <td></td>
+                </tr>
+            </table>
+
+            }
+
+            @if (@ViewData["IssuenceFromMemory"] != null)
+            {
+                Lab3IGI.Issuence IssuenceFromMemory = (Lab3IGI.Issuence)ViewData["IssuenceFromMemory"];
+            <h2>Issuence from memory</h2>
+            <table class="table-condensed table-striped table-bordered">
+                <tr>
+                    <td> @Html.DisplayNameFor(x => x[0].ID)</td>
+                    <td> @IssuenceFromMemory.ID.ToString()</td>
+                </tr>
+                <tr>
+                    <td> @Html.DisplayNameFor(x => x[0].Reader)</td>
+                    <td>@IssuenceFromMemory.ReaderID.ToString()</td>
+                </tr>
+                <tr>
+                    <td> @Html.DisplayNameFor(x => x[0].Book)</td>
+                    <td>@IssuenceFromMemory.BookID.ToString()</td>
+                </tr>
+                <tr>
+                    <td>@Html.DisplayNameFor(x => x[0].DateOfIssuance)</td>
+                    <td> @IssuenceFromMemory.DateOfIssuance.ToString()</td>
+                </tr>
+                <tr>
+                    <td>@Html.DisplayNameFor(x => x[0].Return)</td>
+                    <td> @IssuenceFromMemory.Return.ToString()</td>
+                </tr>
+            </table>
+            }
+        </div>
+    </main>
+
+    <environment include="Development">
+        <script src="~/lib/jquery/dist/jquery.js"></script>
+        <script src="~/lib/bootstrap/dist/js/bootstrap.js"></script>
+        <script src="~/js/site.js" asp-append-version="true"></script>
+    </environment>
+    <environment exclude="Development">
+        <script src="https://ajax.aspnetcdn.com/ajax/jquery/jquery-2.2.0.min.js"
+                asp-fallback-src="~/lib/jquery/dist/jquery.min.js"
+                asp-fallback-test="window.jQuery"
+                crossorigin="anonymous"
+                integrity="sha384-K+ctZQ+LL8q6tP7I94W+qzQsfRV2a+AfHIi9k8z8l9ggpc8X+Ytst4yBo/hH+8Fk">
+        </script>
+        <script src="https://ajax.aspnetcdn.com/ajax/bootstrap/3.3.7/bootstrap.min.js"
+                asp-fallback-src="~/lib/bootstrap/dist/js/bootstrap.min.js"
+                asp-fallback-test="window.jQuery && window.jQuery.fn && window.jQuery.fn.modal"
+                crossorigin="anonymous"
+                integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa">
+        </script>
+        <script src="~/js/site.min.js" asp-append-version="true"></script>
+    </environment>
+
+
+</body>
+</html>
+

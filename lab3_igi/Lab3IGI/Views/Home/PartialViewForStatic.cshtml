@@ -1,0 +1,57 @@
+﻿@model List<Lab3IGI.Reader>
+
+
+@foreach (var item in Model)
+{
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.FullName)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.DateOfBirth)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Adres)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.PassportData)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.PhoneNumber)
+        </td>
+    </tr>
+}
+
+@if (@ViewData["ReaderFromMemory"] != null)
+{
+    Lab3IGI.Reader ReaderFromMemory = (Lab3IGI.Reader)ViewData["ReaderFromMemory"];
+    <tr><td>
+    <h2>Reader from memory</h2>
+    <table class="table-condensed table-striped table-bordered">
+        <tr>
+            <td> @Html.DisplayNameFor(x => x[0].ID)</td>
+            <td> @ReaderFromMemory.ID.ToString()</td>
+        </tr>
+        <tr>
+            <td> @Html.DisplayNameFor(x => x[0].FullName)</td>
+            <td>@ReaderFromMemory.FullName.ToString()</td>
+        </tr>
+        <tr>
+            <td> @Html.DisplayNameFor(x => x[0].DateOfBirth)</td>
+            <td>@ReaderFromMemory.DateOfBirth.ToString()</td>
+        </tr>
+        <tr>
+            <td>@Html.DisplayNameFor(x => x[0].Adres)</td>
+            <td> @ReaderFromMemory.Adres.ToString()</td>
+        </tr>
+        <tr>
+            <td>@Html.DisplayNameFor(x => x[0].PassportData)</td>
+            <td>@ReaderFromMemory.PassportData.ToString()</td>
+        </tr>
+        <tr>
+            <td>@Html.DisplayNameFor(x => x[0].PhoneNumber)</td>
+            <td> @ReaderFromMemory.PhoneNumber.ToString()</td>
+        </tr>
+    </table>
+</td> </tr>
+}
