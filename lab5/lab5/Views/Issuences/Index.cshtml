@@ -1,0 +1,89 @@
+﻿@model IEnumerable<Issuence>
+@using lab5.Extensions
+@{
+    ViewData["Title"] = "Index";
+}
+<h2>Issuence</h2>
+<p>
+    <a asp-action="Create">Create New</a>
+</p>
+<div class="input-group">
+    @Html.Glyicon()
+    <input id="find" value="@GetFromSession("Issuence.Finding")" name="find" class="form-control" />
+</div>
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.Reader.FullName)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Book.Name)
+
+            </th>
+
+            <th>
+                <span>@Html.DisplayNameFor(model => model.DateOfIssuance)</span>
+                <input type="checkbox" id="sort-name"
+                       checked="@(GetFromSession("Issuence.Filter.First") == "True" ? true : false)" />
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Return)
+            </th>
+
+            <th></th>
+        </tr>
+    </thead>
+    <tbody id="list">
+        @foreach (var item in Model)
+        {
+            <tr id="@item.Reader.FullName" class="item-line">
+                <td>
+                    @Html.DisplayFor(modelItem => item.Reader.FullName)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Book.Name)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.DateOfIssuance)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Return)
+                </td>
+
+                <td>
+                    <a asp-action="Edit" asp-route-id="@item.ID">Edit</a> |
+                    <a asp-action="Details" asp-route-id="@item.ID">Details</a> |
+                    <a asp-action="Delete" asp-route-id="@item.ID">Delete</a>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
+<div>
+    <div>User Actions history:</div>
+    <div>
+        <ul>
+            @foreach (var act in ViewBag.UserActions as List<string>)
+            {
+                <li>@act</li>
+            }
+        </ul>
+    </div>
+</div>
+
+@section Scripts{
+    <script src="~/js/Index.js"></script>
+    <script src="~/js/Issuences.Index.js"></script>
+}
+
+@using Microsoft.AspNetCore.Http;
+@using Newtonsoft.Json;
+@functions{
+    public string GetFromSession(string key)
+    {
+        var findingTextJSON = Context.Session.GetString(key);
+        var findingText = findingTextJSON == null ? "" : JsonConvert.DeserializeObject<string>(findingTextJSON);
+        return findingText;
+    }
+}

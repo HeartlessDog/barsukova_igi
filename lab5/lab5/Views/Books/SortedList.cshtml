@@ -1,0 +1,65 @@
+﻿@model List<lab5.Models.Book>
+
+@{
+    for (var i = ViewBag.StartIndex; i < Model.Count && i < ViewBag.StartIndex + 5; i++)
+    {
+        var currentModel = Model[i] as Book;
+        <tr id="@currentModel.Name" class="item-line">
+            <td>
+                @Html.DisplayFor(modelItem => currentModel.RegistrationNumber)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => currentModel.Name)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => currentModel.Author)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => currentModel.Edition)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => currentModel.YearOfEdition)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => currentModel.Price)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => currentModel.Jenre.Name)
+            </td>
+            <td>
+                <a asp-action="Edit" asp-route-id="@currentModel.ID">Edit</a> |
+                <a asp-action="Details" asp-route-id="@currentModel.ID">Details</a> |
+                <a asp-action="Delete" asp-route-id="@currentModel.ID">Delete</a>
+            </td>
+        </tr>
+    }
+    <tr>
+        <td>
+            <div class="input-group">
+                @if (ViewBag.StartIndex > 0)
+                {
+                    <input type="button" value="<" class=" pagepicker" id="prevPage" />
+                }
+                @for (var i = 0; i < Model.Count / 5 ||
+             i == Model.Count / 5 && Model.Count % 5 > 0; i++)
+                {
+                    if (i == (ViewBag.StartIndex / 5 as int?))
+                    {
+                        <input type="button" value="@i" class=" pagepicker picked-page" id="currentPage" />
+                    }
+                    else
+                    {
+                        <input type="button" value="@i" class=" pagepicker" />
+                    }
+                }
+                @if (ViewBag.StartIndex / 5 < Model.Count / 5)
+                {
+                    <input type="button" value=">" class=" pagepicker" id="nextPage" />
+                }
+            </div>
+        </td>
+    </tr>
+}
+
+    <script type="text/javascript" src="~/js/BookSortedList.js"></script>
+    

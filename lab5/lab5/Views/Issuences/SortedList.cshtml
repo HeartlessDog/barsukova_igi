@@ -1,0 +1,56 @@
+﻿@model List<Issuence>
+@{
+    for (var i = ViewBag.StartIndex; i < Model.Count && i < ViewBag.StartIndex + 5; i++)
+    {
+        var currentModel = Model[i] as Issuence;
+    <tr id="@currentModel.Reader.FullName" class="item-line">
+        <td>
+            @Html.DisplayFor(modelItem => currentModel.Reader.FullName)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => currentModel.Book.Name)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => currentModel.DateOfIssuance)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => currentModel.Return)
+        </td>
+
+        <td>
+            <a asp-action="Edit" asp-route-id="@currentModel.ID">Edit</a> |
+            <a asp-action="Details" asp-route-id="@currentModel.ID">Details</a> |
+            <a asp-action="Delete" asp-route-id="@currentModel.ID">Delete</a>
+        </td>
+    </tr>
+    }
+    <tr>
+        <td>
+            <div class="input-group">
+                @if (ViewBag.StartIndex > 0)
+                {
+                    <input type="button" value="<" class=" pagepicker" id="prevPage" />
+                }
+                @for (var i = 0; i < Model.Count / 5 ||
+            i == Model.Count / 5 && Model.Count % 5 > 0; i++)
+                {
+                    if (i == (ViewBag.StartIndex / 5 as int?))
+                    {
+                        <input type="button" value="@i" class=" pagepicker picked-page" id="currentPage" />
+                    }
+                    else
+                    {
+                        <input type="button" value="@i" class=" pagepicker" />
+                    }
+                }
+                @if (ViewBag.StartIndex / 5 < Model.Count / 5)
+                {
+                    <input type="button" value=">" class=" pagepicker" id="nextPage" />
+                }
+            </div>
+        </td>
+    </tr>
+}
+
+<script type="text/javascript" src="~/js/IssuencesSortedList.js"></script>
+

@@ -1,0 +1,12 @@
+E:\hell\06sem\Избранные главы информатики\005l\lab5\lab5\obj\Debug\netcoreapp2.0\lab5.csprojResolveAssemblyReference.cache
+E:\hell\06sem\Избранные главы информатики\005l\lab5\lab5\obj\Debug\netcoreapp2.0\lab5.csproj.CoreCompileInputs.cache
+E:\hell\06sem\Избранные главы информатики\005l\lab5\lab5\obj\Debug\netcoreapp2.0\lab5.AssemblyInfoInputs.cache
+E:\hell\06sem\Избранные главы информатики\005l\lab5\lab5\obj\Debug\netcoreapp2.0\lab5.AssemblyInfo.cs
+E:\hell\06sem\Избранные главы информатики\005l\lab5\lab5\bin\Debug\netcoreapp2.0\lab5.deps.json
+E:\hell\06sem\Избранные главы информатики\005l\lab5\lab5\bin\Debug\netcoreapp2.0\lab5.runtimeconfig.json
+E:\hell\06sem\Избранные главы информатики\005l\lab5\lab5\bin\Debug\netcoreapp2.0\lab5.runtimeconfig.dev.json
+E:\hell\06sem\Избранные главы информатики\005l\lab5\lab5\bin\Debug\netcoreapp2.0\lab5.dll
+E:\hell\06sem\Избранные главы информатики\005l\lab5\lab5\bin\Debug\netcoreapp2.0\lab5.pdb
+E:\hell\06sem\Избранные главы информатики\005l\lab5\lab5\obj\Debug\netcoreapp2.0\lab5.dll
+E:\hell\06sem\Избранные главы информатики\005l\lab5\lab5\obj\Debug\netcoreapp2.0\lab5.pdb
+E:\hell\06sem\Избранные главы информатики\005l\lab5\lab5\obj\Debug\netcoreapp2.0\UserSecretsAssemblyInfo.cs
