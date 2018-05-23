@@ -1,0 +1,25 @@
+﻿@model List<libr.Models.Issuence>
+
+@foreach (var item in Model) {
+        <tr id="@item.Reader.FullName" class="item-line">
+            <td>
+                @Html.DisplayFor(modelItem => item.DateOfIssuance)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Return)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Book.Name)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Reader.FullName)
+            </td>
+            <td>
+                <a asp-action="Edit" asp-route-id="@item.ID">Edit</a> |
+                <a asp-action="Details" asp-route-id="@item.ID">Details</a> |
+                <a asp-action="Delete" asp-route-id="@item.ID">Delete</a>
+            </td>
+        </tr>
+}
+
+
